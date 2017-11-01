@@ -17,6 +17,4 @@ public interface StudentService
     void deleteStudent (String npm);
     
     void addCourse(String npm, String idCourse);
-
-//	CourseModel selectCourse(String id_course);
 }

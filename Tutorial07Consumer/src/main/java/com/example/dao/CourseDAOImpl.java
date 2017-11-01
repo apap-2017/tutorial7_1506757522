@@ -10,28 +10,28 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.model.StudentModel;
+import com.example.model.CourseModel;
 
 @Service
-public class StudentDAOImpl implements StudentDAO
+public class CourseDAOImpl implements CourseDAO
 {
 	@Autowired
 	private RestTemplate restTemplate;
 	
 	@Override
-	public StudentModel selectStudent (String npm)
+	public CourseModel selectCourse (String id_course)
 	{
-		StudentModel student = restTemplate.getForObject("http://localhost:8080/rest/student/view/"+npm, StudentModel.class);
-		return student;
+		CourseModel course = restTemplate.getForObject("http://localhost:8080/rest/course/view/"+id_course, CourseModel.class);
+		return course;
 	}
 	
 	@Override
-	public List<StudentModel> selectAllStudents ()
+	public List<CourseModel> selectAllCourses ()
 	{
-		ResponseEntity<List<StudentModel>> response = restTemplate.exchange("http://localhost:8080/rest/student/viewall", HttpMethod.GET, null, new ParameterizedTypeReference<List<StudentModel>>() {});
-		List<StudentModel> students = response.getBody();
+		ResponseEntity<List<CourseModel>> response = restTemplate.exchange("http://localhost:8080/rest/course/viewall", HttpMethod.GET, null, new ParameterizedTypeReference<List<CourseModel>>() {});
+		List<CourseModel> courses = response.getBody();
 		
-		return students;
+		return courses;
 	}
 	
 

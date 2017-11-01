@@ -31,7 +31,7 @@ public class StudentServiceRest implements StudentService
 	public List<StudentModel> selectAllStudents ()
 	{
 		log.info ("REST - select all students");
-		return null;
+		return studentDAO.selectAllStudents();
 	}
 	
 	@Override

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.model.CourseModel;
 import com.example.model.StudentModel;
+import com.example.service.CourseService;
 import com.example.service.StudentService;
 
 @Controller
@@ -20,7 +22,9 @@ public class StudentController
     @Autowired
     StudentService studentDAO;
 
-
+    @Autowired
+    CourseService courseDAO;
+    
     @RequestMapping("/")
     public String index ()
     {
@@ -135,18 +139,27 @@ public class StudentController
         return "success-update";
     }
     
-//    @RequestMapping("/course/view/{id_course}")
-//    public String coursePath (Model model, @PathVariable(value = "id_course") String id_course)
-//    {
-//        CourseModel course = studentDAO.selectCourse (id_course);
-//
-//        if (course != null) {
-//            model.addAttribute ("course", course);
-//            return "viewCourse";
-//        } else {
-//            model.addAttribute ("course", course);
-//            return "course-not-found";
-//        }
-//    }
+    @RequestMapping("/course/viewall")
+    public String viewallCourse (Model model)
+    {
+        List<CourseModel> courses = courseDAO.selectAllCourses ();
+        model.addAttribute ("courses", courses);
+
+        return "viewallcourse";
+    }
+    
+    @RequestMapping("/course/view/{id_course}")
+    public String coursePath (Model model, @PathVariable(value = "id_course") String id_course)
+    {
+        CourseModel course = courseDAO.selectCourse (id_course);
+
+        if (course != null) {
+            model.addAttribute ("course", course);
+            return "viewCourse";
+        } else {
+            model.addAttribute ("course", course);
+            return "course-not-found";
+        }
+    }
 
 }

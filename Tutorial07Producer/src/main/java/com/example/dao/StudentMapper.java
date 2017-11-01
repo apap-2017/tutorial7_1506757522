@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Many;
 
+import com.example.model.CourseModel;
 import com.example.model.StudentModel;
 
 @Mapper
@@ -27,6 +28,12 @@ public interface StudentMapper
     		many=@Many(select="selectCourses"))
     })
     StudentModel selectStudent (@Param("npm") String npm);
+    
+	@Select("select course.id_course, name, credits " +
+    		"from studentcourse join course " +
+    		"on studentcourse.id_course = course.id_course " +
+    		"where studentcourse.npm = #{npm}")
+    List<CourseModel> selectCourses (@Param("npm")String npm);
     
     @Select("select distinct student.npm, name, gpa "  + 
     		"from studentcourse join student " + 
